@@ -1,6 +1,6 @@
 Banking System
 
-git add *
+git add .
 
 git commit -m "ghgjh"
 
