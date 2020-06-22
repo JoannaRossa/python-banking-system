@@ -45,5 +45,22 @@ import db
 # conn.commit()
 
 def main():
+    print("Welcome to ATM")
+    print("Enter your pin: ")
+    id=input("")
+    #pin is obtained, system assigns pin to a role and displays:
+    #if it is a client then:
+    print() #display first name and last name of the user
+    print("Select an account: ")
+    account=input("") #depending on what the input is, system will give access to that account
+    print("Select a transaction: ") #...
+    print
+    print("Enter amount: ")
+    amount=input("") #deal with it and when done:
+    print("Would you like to make another transaction?")
+    #input, if yes then repeat the steps, if no then end a session and print a message:
+    print("Thank you for using ATM")
+
+    
 
     
