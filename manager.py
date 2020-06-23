@@ -1,6 +1,6 @@
 class Manager(Client):
     def __init__(self):
-        Client.def__init__(self)
+        Client.def __init__(self)
 #Manager can open/close and account
     #create an account
 

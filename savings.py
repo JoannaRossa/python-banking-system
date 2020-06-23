@@ -1,4 +1,4 @@
-class Savings:
+class Savings(Account):
     def __init__(self, balance):
         self.interest = 0
         self.balance = balance

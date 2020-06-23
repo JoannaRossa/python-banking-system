@@ -1,12 +1,12 @@
 class Client:
 
-    def __init__(self, id, first_name, last_name):
-        self.id = id
+    def __init__(self, pin, first_name, last_name):
+        self.pin = pin
         self.first_name = first_name
         self.last_name = last_name
 
     def get_id(self):
-        return self.id
+        return self.pin
     def get_first_name(self):
         return self.first_name
     def get_last_name(self):
@@ -15,9 +15,7 @@ class Client:
     
     #which account
 
-    # def getAccount():
-
-    def getAccount()
+    #def getAccount():
 
     #make protected variables so manager can access them
 

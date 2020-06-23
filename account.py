@@ -2,16 +2,20 @@ class Account(object):
    
    #open/close
 
+    def __init__(self, pin, first_name, last_name, balance, deposit, withdrawal, transfer): 
+        self.pin = pin
+        self.first_name = first_name
+        self.last_name = last_name
+        self.balance = balance
+        self.deposit = deposit
+        self.withdrawal = withdrawal
+        self.transfer = transfer
 
-    def __init__(self,id): 
-        self.id = id 
-        self.first_name
-        self.last_name
-        self.balance = 0   
-        self.deposit = 0
-        self.withdrawal = 0
-        self.transfer = 0
-
+    #display account details
+    #this should be visible to both the client and the manager
+    def show(self):
+        print(self.pin, self.first_name, self.last_name, self.balance, self.deposit, self.withdrawal, self.transfer)
+    
     #deposit function
     def deposit(self, amount, conn):
         #update balance

@@ -1,5 +1,5 @@
 
-class Chequing:
+class Chequing(Account):
     def __init__(self):
         self.tier = 0
         self.interest = 0
