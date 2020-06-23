@@ -14,7 +14,10 @@ class Client:
     #enter ur pin
     
     #which account
+
     # def getAccount():
+
+    def getAccount()
 
     #make protected variables so manager can access them
 

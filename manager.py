@@ -9,3 +9,4 @@ def getClientInfo
 print(cursor.fetchone())
 #display all clients' details
 print(cursor.fetchall())
+

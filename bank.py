@@ -2,11 +2,17 @@ class Bank:
    
    #open/close
 
-    def__init__(self,id): 
-        self.balance = 0
-        self.id = id #based on id, the role will be assigned
 
-    def deposit(self, amount,conn):
+    def__init__(self): 
+        self.id = None #based on id, the role will be assigned
+        self.balance = 0   #should I initialize to zero or to balance variable
+        self.deposit = 0
+        self.withdraw = 0
+        self.transfer = 0
+    
+    
+    def deposit(self, amount):
+
         #update balance
         self.balance += amount
         #update deposit
@@ -18,6 +24,7 @@ class Bank:
         conn.send(data.encode())
 
     def withdrawal(self, amount, conn):
+
         #update balance
         self.balance -= amount
         #update withdrawal
@@ -25,11 +32,13 @@ class Bank:
         #display updated data
         print("You withdrew: " + amount)
         print("Your current balance is: " + self.balance)
+
         data = 
         conn.send(data.encode())
 
     
     def transfer(self, amount, conn):
+
         #update balance
         self.balance -= amount
         #update transfer
@@ -43,7 +52,9 @@ class Bank:
         return self.balance
     
     def close(self, amount):
-        # if self.balance = 0
+        if self.balance = 0
+
+
             #close account
         
 

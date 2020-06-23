@@ -1,3 +1,4 @@
+
 class Chequing:
     def __init__(self):
         self.tier = 0
@@ -14,3 +15,4 @@ class Chequing:
         if(balance>=600.01):
             self.interest=0.04
             
+
