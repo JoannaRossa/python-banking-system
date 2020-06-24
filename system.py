@@ -48,43 +48,93 @@ class System:
                     else:
                         return option
                         break             
-                
                 break
             #if id starts with 1 it is the client-open client class
             elif first_char == "2":
                 print('Welcome to the client account')
-                print("Please select from the following options: 1 - account details, 2 - deposit, 3 - withdraw, 4 - transfer, 5 - contact manager")
+                print("Please select an account: 1 - chequing, 2 - savings")
                 while True:
                     try:
-                        option=int(input("Enter option: "))
-                        while option > 0 and option < 6:
-                            if option == 1:
-                                print("account details")
+                        account=int(input("Select an account: "))
+                        while account > 0 and account < 3:
+                            if account == 1:
+                                print("Welcome to Chequing Account")
+                                print("Please select from the following options: 1 - account details, 2 - deposit, 3 - withdraw, 4 - transfer, 5 - contact manager")
+                                while True:
+                                    try:
+                                        option=int(input("Enter option: "))
+                                        while option > 0 and option < 6:
+                                            if option == 1:
+                                                print("account details")
+                                                break
+                                            elif option == 2:
+                                                print("deposit")
+                                                break
+                                            elif option == 3:
+                                                print("withdraw")
+                                                break
+                                            elif option == 4:
+                                                print("transfer")  
+                                                break 
+                                            elif option == 5:  
+                                                print("contact manager")
+                                                break
+                                        else:
+                                            print("Error - enter option number from 1 to 5: ")
+                                            continue
+                                    except ValueError:
+                                        print("Enter a number. Try again.")
+                                        continue
+                                    else:
+                                        return option
+                                        break                     
                                 break
-                            elif option == 2:
-                                print("deposit")
+                            ################             
+                            elif account == 2:
+                                print("Welcome to Savings Account")
+                                print("Please select from the following options: 1 - account details, 2 - deposit, 3 - withdraw, 4 - transfer, 5 - contact manager")
+                                while True:
+                                    try:
+                                        option=int(input("Enter option: "))
+                                        while option > 0 and option < 6:
+                                            if option == 1:
+                                                print("account details")
+                                                break
+                                            elif option == 2:
+                                                print("deposit")
+                                                break
+                                            elif option == 3:
+                                                print("withdraw")
+                                                break
+                                            elif option == 4:
+                                                print("transfer")  
+                                                break 
+                                            elif option == 5:  
+                                                print("contact manager")
+                                                break
+                                        else:
+                                            print("Error - enter option number from 1 to 5: ")
+                                            continue
+                                    except ValueError:
+                                        print("Enter a number. Try again.")
+                                        continue
+                                    else:
+                                        return option
+                                        break                      
                                 break
-                            elif option == 3:
-                                print("withdraw")
-                                break
-                            elif option == 4:
-                                print("transfer")  
-                                break 
-                            elif option == 5:  
-                                print("contact manager")
-                                break
+                        
                         else:
-                            print("Error - enter option number from 1 to 5: ")
+                            print("Error - enter option number 1 or 2: ")
                             continue
                     except ValueError:
                         print("Enter a number. Try again.")
                         continue
                     else:
-                        return option
+                        return account
                         break
-                        
-                                        
+                                           
                 break
+
             #if id starts with 2 it is the maintenance-open maintenance class
             elif first_char == "3":
                 print('Welcome to the maintenance accont')
@@ -124,6 +174,10 @@ def main():
     userID = System()
     userPIN = userID.getPIN()
     print(userID.assignRole(userPIN))
+    # account = Account()
+    # account.deposit(100)
+    # print(account.getBalance)
+    
 
 
     
@@ -143,7 +197,9 @@ def main():
     # amount=input("") #deal with it and when done:
     # print("Would you like to make another transaction?")
     # #input, if yes then repeat the steps, if no then end a session and print a message:
-    # print("Thank you for being a part of RBC")
+    # print('====================================================')
+    # print("           Thank you for being with RBC             ")
+    # print('====================================================')
     
     
 if __name__ == "__main__":
