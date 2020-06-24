@@ -46,7 +46,7 @@ class System:
                 print('Welcome to the client account')
                 print("Please select from the following options: 1 - account details, 2 - deposit, 3 - withdraw, 4 - transfer, 5 - contact manager")
                 option=int(input("Enter option: "))
-                while option > 0 and option < 5:
+                while option > 0 and option < 6:
                     if option == 1:
                         print("account details")
                         break
@@ -61,7 +61,7 @@ class System:
                         break 
                     elif option == 5:  
                         print("contact manager")
-                    
+                        break
                     else:
                         option = input("Error - enter option number from 1 to 4: ")
                                    
@@ -69,7 +69,20 @@ class System:
             #if id starts with 2 it is the maintenance-open maintenance class
             elif first_char == "3":
                 print('Welcome to the maintenance accont')
-                
+                print("Please select from the following options: 1 - execution trace ON, 2 - execution trace OFF")
+                option=int(input("Enter option: "))
+                while option > 0 and option < 3:
+                    if option == 1:
+                        print("execution trace ON")
+                        break
+                    elif option == 2:
+                        print("execution trace OFF")
+                        break
+
+                    else:
+                        option = input("Error - enter option number from 1 to 4: ")
+                                   
+                break
                 break
         
         else:
