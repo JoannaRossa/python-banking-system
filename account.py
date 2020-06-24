@@ -1,4 +1,4 @@
-class Account(object):
+class Account:
    
    #open/close
 

@@ -1,12 +1,10 @@
-class System(Account):
+from account import Account
 
-#first step in the banking system
-    def __init__(self, pin):
-        self.pin = pin
-    
+class System:
+
+    #first step in the banking system
     #method requesting user PIN and handling errors
     def getPIN(self):
-        print("Please enter your PIN: ")
         while True:
             try:
                 pin = int(input("Enter PIN: "))
@@ -19,36 +17,42 @@ class System(Account):
     
     #method that assigns a role to the user based on their PIN
     def assignRole(self, pin):
-        first_char = self.pin[0]
-        while(first_char > 0 and first_char < 4):
+        first_char = str(pin)[0]
+        while first_char > "0" and first_char < "4":
             #if id starts with 0 it is the manager-open manager class
-            if (first_char == 1):
+            if first_char == "1":
                 print('Welcome to the manager account')
                 
                 break
             #if id starts with 1 it is the client-open client class
-            elif (first_char == 2):
+            elif first_char == "2":
                 print('Welcome to the client account')
 
                 break
             #if id starts with 2 it is the maintenance-open maintenance class
-            elif (first_char == 3):
+            elif first_char == "3":
                 print('Welcome to the maintenance accont')
                 
                 break
         
         else:
-            inputID = int(input("Error - enter PIN starting with a digit from 0 to 2: "))
-            assignRole(inputPIN)
+            pin = input("Error - enter PIN starting with a digit from 1 to 3: ")
+            self.assignRole(pin)
     
 
 def main():
     print('======================================')
     print("          Welcome to RBC              ")
     print('======================================')
+
     userID = System()
-    print(userID.getPIN)
+    userPIN = userID.getPIN()
+    print(userID.assignRole(userPIN))
+
     
+    print(System().assignRole(System().getPIN())
+    # userID2 = Account()
+
     # print(s1.getId())
     #user1.getId()
     #pin is obtained, system assigns pin to a role and displays:
