@@ -23,68 +23,91 @@ class System:
             if first_char == "1":
                 print('Welcome to the manager account')
                 print("Please select from the following options: 1 - open client account, 2 - display client info, 3 - display database info, 4 - close client account")
-                option=int(input("Enter option: "))
-                while option > 0 and option < 5:
-                    if option == 1:
-                        print("Open client account")
-                        break
-                    elif option == 2:
-                        print("Display client info")
-                        break
-                    elif option == 3:
-                        print("Display database info")
-                        break
-                    elif option == 4:
-                        print("Close client account")  
-                        break   
+                while True:
+                    try:
+                        option=int(input("Enter option: "))
+                        while option > 0 and option < 5:
+                            if option == 1:
+                                print("Open client account")
+                                break
+                            elif option == 2:
+                                print("Display client info")
+                                break
+                            elif option == 3:
+                                print("Display database info")
+                                break
+                            elif option == 4:
+                                print("Close client account")  
+                                break   
+                        else:
+                            option = input("Error - enter option number from 1 to 4: ")      
+                    except ValueError:
+                        print("Enter a number. Try again.")
+                        continue
                     else:
-                        option = input("Error - enter option number from 1 to 4: ")                   
+                        return option
+                        break             
+                
                 break
-    
             #if id starts with 1 it is the client-open client class
             elif first_char == "2":
                 print('Welcome to the client account')
                 print("Please select from the following options: 1 - account details, 2 - deposit, 3 - withdraw, 4 - transfer, 5 - contact manager")
-                option=int(input("Enter option: "))
-                while option > 0 and option < 6:
-                    if option == 1:
-                        print("account details")
-                        break
-                    elif option == 2:
-                        print("deposit")
-                        break
-                    elif option == 3:
-                        print("withdraw")
-                        break
-                    elif option == 4:
-                        print("transfer")  
-                        break 
-                    elif option == 5:  
-                        print("contact manager")
-                        break
+                while True:
+                    try:
+                        option=int(input("Enter option: "))
+                        while option > 0 and option < 6:
+                            if option == 1:
+                                print("account details")
+                                break
+                            elif option == 2:
+                                print("deposit")
+                                break
+                            elif option == 3:
+                                print("withdraw")
+                                break
+                            elif option == 4:
+                                print("transfer")  
+                                break 
+                            elif option == 5:  
+                                print("contact manager")
+                                break
+                            else:
+                                option = input("Error - enter option number from 1 to 5: ")
+                    except ValueError:
+                        print("Enter a number. Try again.")
+                        continue
                     else:
-                        option = input("Error - enter option number from 1 to 4: ")
-                                   
+                        return option
+                        break
+                        
+                                        
                 break
             #if id starts with 2 it is the maintenance-open maintenance class
             elif first_char == "3":
                 print('Welcome to the maintenance accont')
                 print("Please select from the following options: 1 - execution trace ON, 2 - execution trace OFF")
-                option=int(input("Enter option: "))
-                while option > 0 and option < 3:
-                    if option == 1:
-                        print("execution trace ON")
-                        break
-                    elif option == 2:
-                        print("execution trace OFF")
-                        break
-
+                while True:
+                    try:
+                        option=int(input("Enter option: "))
+                        while option > 0 and option < 3:
+                            if option == 1:
+                                print("execution trace ON")
+                                break
+                            elif option == 2:
+                                print("execution trace OFF")
+                                break
+                            else:
+                                option = input("Error - enter option number from 1 to 2: ")
+                    except ValueError:
+                        print("Enter a number. Try again.")
+                        continue
                     else:
-                        option = input("Error - enter option number from 1 to 4: ")
-                                   
+                        return option
+                        break                     
+                
                 break
-                break
-        
+ 
         else:
             pin = input("Error - enter PIN starting with a digit from 1 to 3: ")
             self.assignRole(pin)
