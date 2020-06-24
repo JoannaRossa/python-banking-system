@@ -40,7 +40,8 @@ class System:
                                 print("Close client account")  
                                 break   
                         else:
-                            option = input("Error - enter option number from 1 to 4: ")      
+                            print("Error - enter option number from 1 to 4: ")
+                            continue      
                     except ValueError:
                         print("Enter a number. Try again.")
                         continue
@@ -72,8 +73,9 @@ class System:
                             elif option == 5:  
                                 print("contact manager")
                                 break
-                            else:
-                                option = input("Error - enter option number from 1 to 5: ")
+                        else:
+                            print("Error - enter option number from 1 to 5: ")
+                            continue
                     except ValueError:
                         print("Enter a number. Try again.")
                         continue
@@ -97,8 +99,9 @@ class System:
                             elif option == 2:
                                 print("execution trace OFF")
                                 break
-                            else:
-                                option = input("Error - enter option number from 1 to 2: ")
+                        else:
+                            print("Error - enter option number from 1 to 2: ") 
+                            continue
                     except ValueError:
                         print("Enter a number. Try again.")
                         continue
