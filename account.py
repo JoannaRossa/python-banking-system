@@ -12,10 +12,8 @@ class Account:
         self.withdrawal = withdrawal
         self.transfer = transfer
 
-    #display account details
-    #this should be visible to both the client and the manager
-    # def show(self):
-    #     print(self.pin, self.first_name, self.last_name, self.balance, self.deposit, self.withdrawal, self.transfer)
+    def checkPIN(self,value):
+        return self.pin==value
     
     #deposit function
     def deposit(self, amount, conn):

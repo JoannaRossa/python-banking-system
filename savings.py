@@ -1,4 +1,5 @@
 from account import Account
+
 class Savings(Account):
     def __init__(self, balance):
         self.interest = 0

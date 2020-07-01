@@ -1,6 +1,8 @@
-class Manager(Client):
+from client import Client
+
+class Manager:
     def __init__(self):
-        Client.def __init__(self)
+    
 #Manager can open/close and account
     #create an account
 
