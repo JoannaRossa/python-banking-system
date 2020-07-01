@@ -18,6 +18,7 @@ def create_table():
         POSTAL CODE TEXT NOT NULL,
         PHONE INT NOT NULL,
         EMAIL TEXT NOT NULL''')
+    conn.commit()
 
     # Create table - ACCOUNTS 
     c.execute('''CREATE TABLE IF NOT EXISTS ACCOUNTS (
@@ -26,26 +27,27 @@ def create_table():
         ACCOUNT TYPE TEXT FOREIGN KEY NOT NULL,
         CLIENT ID INT FOREIGN KEY NOT NULL, 
         CURRENT BALANCE REAL NOT NULL''')
-    
+    conn.commit()
     # Create table - ACCOUNT TYPE 
     c.execute('''CREATE TABLE IF NOT EXISTS ACCOUNT TYPE (
         ACCOUNT TYPE TEXT PRIMARY KEY NOT NULL''')
-    
+    conn.commit()
     # Create table - ACCOUNT STATUS
     c.execute('''CREATE TABLE IF NOT EXISTS ACCOUNT STATUS (
         ACCOUNT STATUS TEXT PRIMARY KEY NOT NULL''')
-    
+    conn.commit()
     # Create table - TRANSACTIONS
     c.execute('''CREATE TABLE IF NOT EXISTS TRANSACTIONS (
         TRANSACTION ID INT PRIMARY KEY NOT NULL
         ACCOUNT NUMBER INT FOREIGN KEY NOT NULL,
         TRANSACTION TYPE TEXT FOREIGN KEY NOT NULL
         TRANSACTION AMOUNT REAL NOT NULL''')
-    
+    conn.commit()
     # Create table - TRANSACTION TYPE
     c.execute('''CREATE TABLE IF NOT EXISTS TRANSACTION TYPE (
         TRANSACTION TYPE TEXT PRIMARY KEY NOT NULL''')
-    
+    conn.commit()
+
 def data_entry():
     c.execute('''INSERT INTO CLIENTS VALUES(456, 'JO', 'RO', 'F', 'GARTH', 'HAMONT', 'ON', 'X', 289, 'ASIA') ''')
     conn.commit()
