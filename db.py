@@ -11,6 +11,7 @@ def create_table():
         CLIENT_ID INT PRIMARY KEY NOT NULL,
         FIRST_NAME TEXT NOT NULL, 
         LAST_NAME TEXT NOT NULL, 
+        AGE INT NOT NULL,
         GENDER TEXT NOT NULL,
         STREET TEXT NOT NULL,
         CITY TEXT NOT NULL,
@@ -27,16 +28,16 @@ def create_table():
         ACCOUNT_TYPE TEXT NOT NULL,
         CLIENT_ID INT NOT NULL, 
         CURRENT_BALANCE REAL NOT NULL,
-        FOREIGN KEY(ACCOUNT_STATUS) REFERENCES ACCOUNT STATUS(ACCOUNT_STATUS),
-        FOREIGN KEY(ACCOUNT_TYPE) REFERENCES ACCOUNT TYPE(ACCOUNT_TYPE),
+        FOREIGN KEY(ACCOUNT_STATUS) REFERENCES ACCOUNT_STATUS(ACCOUNT_STATUS),
+        FOREIGN KEY(ACCOUNT_TYPE) REFERENCES ACCOUNT_TYPE(ACCOUNT_TYPE),
         FOREIGN KEY(CLIENT_ID) REFERENCES CLIENT(CLIENT_ID))''')
     
     # Create table - ACCOUNT TYPE 
-    c.execute('''CREATE TABLE IF NOT EXISTS ACCOUNT TYPE (
+    c.execute('''CREATE TABLE IF NOT EXISTS ACCOUNT_TYPE (
         ACCOUNT_TYPE TEXT PRIMARY KEY NOT NULL)''')
     
     # Create table - ACCOUNT STATUS
-    c.execute('''CREATE TABLE IF NOT EXISTS ACCOUNT STATUS (
+    c.execute('''CREATE TABLE IF NOT EXISTS ACCOUNT_STATUS (
         ACCOUNT_STATUS TEXT PRIMARY KEY NOT NULL)''')
     
     # Create table - TRANSACTIONS
@@ -46,23 +47,23 @@ def create_table():
         TRANSACTION_TYPE TEXT NOT NULL,
         TRANSACTION_AMOUNT REAL NOT NULL,
         FOREIGN KEY(ACCOUNT_NUMBER) REFERENCES ACCOUNTS(ACCOUNT_NUMBER),
-        FOREIGN KEY(TRANSACTION_TYPE) REFERENCES TRANSACTION TYPE(TRANSACTION_TYPE))''')
+        FOREIGN KEY(TRANSACTION_TYPE) REFERENCES TRANSACTION_TYPE(TRANSACTION_TYPE))''')
     
     # Create table - TRANSACTION TYPE
-    c.execute('''CREATE TABLE IF NOT EXISTS TRANSACTION TYPE (
+    c.execute('''CREATE TABLE IF NOT EXISTS TRANSACTION_TYPE (
         TRANSACTION_TYPE TEXT PRIMARY KEY NOT NULL)''')
 
 conn.commit()
 
 def data_entry():
-    c.execute('''INSERT INTO CLIENTS VALUES(456, 'JO', 'RO', 'F', 'GARTH', 'HAMONT', 'ON', 'X', 289, 'ASIA') ''')
+    c.execute('''INSERT INTO CLIENTS VALUES(456, 'JO', 'RO', 21, 'F', 'GARTH', 'HAMONT', 'ON', 'X', 289, 'ASIA') ''')
     conn.commit()
     c.close()
     conn.close()
 
 # def dynamic_data_entry():
-#     c.execute('''INSERT INTO CLIENTS(client_id, first_name, last_name, gender, street, city, province, postal_code, phone, email) VALUES (?,?,?,?,?,?,?,?,?,?)''',
-#                 (pin, first_name, last_name, gender, street, city, province, postal_code, phone, email))
+#     c.execute('''INSERT INTO CLIENTS(client_id, first_name, last_name, age, gender, street, city, province, postal_code, phone, email) VALUES (?,?,?,?,?,?,?,?,?,?)''',
+#                 (pin, first_name, last_name, age, gender, street, city, province, postal_code, phone, email))
 
 
 
