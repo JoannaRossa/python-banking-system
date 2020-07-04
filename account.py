@@ -3,8 +3,8 @@ class Account:
    #open/close
 
 
-    def __init__(self, pin, first_name, last_name, balance, deposit, withdrawal, transfer): 
-        self.pin = pin
+    def __init__(self, client_id, first_name, last_name, balance, deposit, withdrawal, transfer): 
+        self.client_id = client_id
         self.first_name = first_name
         self.last_name = last_name
         self.balance = balance
@@ -13,7 +13,7 @@ class Account:
         self.transfer = transfer
 
     def checkPIN(self,value):
-        return self.pin==value
+        return self.client_id==value
     
     #deposit function
     def deposit(self, amount, conn):
