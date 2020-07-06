@@ -1,33 +1,24 @@
 from db import fetch_manager_details
 from manager import Manager
+from client import Client
 
-def role_verification():
-    while True:
-        try:
-            role_number = int(input("Select your role: 1 - client, 2 - manager, 3 - maintenance: "))
-        except ValueError:
-            print("Enter a number. Try again.")
-            continue
-        else:
-            return role_number
-            break
+
 def manager_signin():
     while True:
-        try:
-            log_in_manager_id = int(input("Enter your manager ID: "))
-            log_in_manager_password = int(input("Enter password: "))
-            manager_details = fetch_manager_details(log_in_manager_id,log_in_manager_password)
-            if manager_details is not None:
-                manager_id = manager_details[0]
-                manager_password = manager_details[1]
-                if log_in_manager_id == manager_id and log_in_manager_password == manager_password:
-                    # Successful login
-                    return Manager(manager_id, manager_password, manager_details[2], manager_details[3],manager_details[4],manager_details[5],manager_details[6],manager_details[7],manager_details[8],manager_details[9],manager_details[10],manager_details[11])
-        except ValueError:
-            print("Invalid character")
+        log_in_manager_id = input("Enter your manager ID: ")
+        log_in_manager_password = input("Enter password: ")
+        manager_details = fetch_manager_details(log_in_manager_id,log_in_manager_password)
+        if manager_details is not None:
+            manager_id = manager_details[0]
+            manager_password = manager_details[1]
+            if log_in_manager_id == manager_id and log_in_manager_password == manager_password:
+                # Successful login
+                return Manager(manager_id, manager_password, manager_details[2], manager_details[3],manager_details[4],manager_details[5],manager_details[6],manager_details[7],manager_details[8],manager_details[9],manager_details[10],manager_details[11])
+            print("Successful login")
+            break
         else:
-            print("Invalid ID or password, please try again.")
-                
+            print("Invalid ID or password, please try again.")  
+            
        
    
 
@@ -40,9 +31,9 @@ def contact_manager():
                     print("Open a new account")
                 elif contact_manager_option == 2:
                     print("Close an existing account")
-                else:
-                    print("Error - enter option number from 1 to 2: ")
-                    continue
+            else:
+                print("Error - enter option number from 1 to 2: ")
+                continue
         except ValueError:
             print("Enter a number. Try again.")
             continue
@@ -74,9 +65,9 @@ def savings_account():
                 elif select_menu_option == 4:
                     print("Account details")
                     break
-                else:
-                    print("Error - enter option number from 1 to 4: ")
-                    continue
+            else:
+                print("Error - enter option number from 1 to 4: ")
+                continue
         except ValueError:
             print("Enter a number. Try again.")
             continue
@@ -101,9 +92,9 @@ def chequing_account():
                 elif select_menu_option == 4:
                     print("Account details")
                     break
-                else:                             
-                    print("Try again, please enter option number from 1 to 4: ")
-                    continue
+            else:                             
+                print("Try again, please enter option number from 1 to 4: ")
+                continue
         except ValueError:
             print("Enter a number. Try again.")
         else:
@@ -134,9 +125,9 @@ def client_account_menu():
                 elif select_menu_option == 5:
                     print("Contact the manager")
                     contact_manager()
-                else:
-                    print("Try again, please enter option 1-5. ")
-                    continue
+            else:
+                print("Try again, please enter option 1-5. ")
+                continue
         except ValueError:
             print("Enter a number. Try again.")
             continue
@@ -149,17 +140,20 @@ def client_signup():
 
 def client_signin():
     while True:
-        try:
-            log_in_client_id = int(input("Enter your client ID: "))
-            log_in_password = int(input("Enter password: "))
-        # if log_in_client_id == client_id from the database
-        # and if log_in_password == password from database
-        except ValueError:
-            print("Enter a number. Try again.")
-            continue
+        log_in_client_id = input("Enter your client ID: ")
+        log_in_client_password = input("Enter password: ")
+        client_details = fetch_client_details(log_in_client_id,log_in_client_password)
+        if client_details is not None:
+            client_id = client_details[0]
+            client_password = client_details[1]
+            if log_in_client_id == client_id and log_in_client_password == client_password:
+                # Successful login
+                return Client(client_id, client_password, client_details[2], client_details[3],client_details[4],client_details[5],client_details[6],client_details[7],client_details[8],client_details[9],client_details[10],client_details[11])
+            print("Successful login") 
+            break   
         else:
-            return (log_in_client_id, log_in_password)
-            break
+            print("Invalid ID or password, please try again.")
+ 
 
 def client_signin_signup():
     while True:
@@ -176,9 +170,9 @@ def client_signin_signup():
                     client_signin()
                     
                     break
-                else:
-                    print("Try again, please enter 1 to sign up or 2 to sign in. ")
-                    continue
+            else:
+                print("Try again, please enter 1 to sign up or 2 to sign in. ")
+                continue
         except ValueError:
             print("Enter a number. Try again.")
             continue
@@ -186,31 +180,44 @@ def client_signin_signup():
             return sign_in_sign_up
             break
 
-# like main
-def assign_role(role_number):
-    while role_number < 4 and role_number > 0:
-        if role_number == 1:
-            print("Welcome to the client account")
-            client_signin_signup()
-            
-        elif role_number == 2:
-            print("Welcome to the manager account")
-            manager = manager_signin()
-            print("Successful login")
-            #
-            break  
-        elif role_number == 3:
-            print("Welcome to the maintenance account")
+def role_verification():
+    while True:
+        try:
+            role_number = int(input("Select your role: 1 - client, 2 - manager, 3 - maintenance: "))  
+            while role_number > 0 and role_number < 4:
+                if role_number == 1:
+                    print("Welcome to the client account")
+                    client_signin_signup()
+                    break
+                
+                elif role_number == 2:
+                    print("Welcome to the manager account")
+                    manager = manager_signin()
+                    break
+                
+                    break  
+                elif role_number == 3:
+                    print("Welcome to the maintenance account")
+                    # maintenance = maintenance_signin()
+                    
+                    break
+            else:
+                print("Try again, enter 1 for client, 2 for manager, or 3 for maintenance: ")
+                continue
             break
+        except ValueError:
+            print("Enter a number. Try again.")
+            continue
         else:
-            role_number = input("Try again, enter 1 for client, 2 for manager, or 3 for maintenance: ")
-            assign_role(role_number)
+            return role_number
+            break
+
+    
 
 def main():
     print('===============================================')
     print("             Welcome to Bank of JOJO           ")
     print('===============================================')
-    user_role = role_verification()
-    print(assign_role(user_role))
+    print(role_verification())
 if __name__ == "__main__":
     main()
