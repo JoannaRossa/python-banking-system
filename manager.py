@@ -1,15 +1,25 @@
 from client import Client
 
 class Manager:
-    
-    # def __init__(self):
-    
-#Manager can open/close and account
-    #create an account
+    def __init__(self, manager_id, manager_password, first_name, last_name, age, gender, street, city, province, postal_code, phone, email):
+        self.manager_id = manager_id
+        self.manager_password = manager_password
+        self.first_name = first_name
+        self.last_name = last_name
+        self.age = age
+        self.gender = gender
+        self.street = street
+        self.city = city
+        self.province = province
+        self.postal_code = postal_code
+        self.phone = phone
+        self.email = email
 
-def getClientInfo
-#display individual client's details
-print(cursor.fetchone())
-#display all clients' details
-print(cursor.fetchall())
+    def manager_identification():
+        return (self.manager_id, self.manager_password)
+
+    def get_client_details(self):
+        return (self.manager_id, self.manager_password, self.first_name, self.last_name, self.age, self.gender, self.street, self.city, self.province, self.postal_code, self.phone, self.email)
+        
+
 
