@@ -4,6 +4,7 @@ from db import fetch_client_details
 from client import Client
 from account import Account
 
+
 def manager_signin():
     while True:
         log_in_manager_id = input("Enter your manager ID: ")
@@ -52,6 +53,7 @@ def savings_account():
             while select_account_operation < 5 and select_account_operation > 0:
                 if select_account_operation == 1:
                     print("Deposit")
+        
                     # deposit will be our next function
                     break
                 elif select_account_operation == 2:
@@ -146,9 +148,28 @@ def client_signup():
     sign_up_postal_code = input("Postal Code: ")
     sign_up_phone = input("Phone: ")
     sign_up_email = input("E-mail: ")
-    sign_up_account_type = int(input("Select account type you wish to open: 1 - chequing, 2 - savings, 3 - both: "))
-
-    # client_signin()
+    while True:
+        try:  
+            sign_up_account_type = int(input("Select account type you wish to open: 1 - chequing, 2 - savings, 3 - both: "))
+            while sign_up_account_type > 0 and sign_up_account_type < 4:
+                if sign_up_account_type == 1:
+                    print("Chequing account")
+                    break
+                elif sign_up_account_type == 2:
+                    print("Savings account")
+                    break
+                elif sign_up_account_type == 3:
+                    print("Chequing and Savings account")
+                    break
+            else:
+                print("Try again, please enter option 1-3.")
+                continue
+        except ValueError:
+            print("Enter a number. Try again.")
+            continue
+        else:
+            return sign_up_account_type
+            break
 
 def client_signin():
     while True:
@@ -167,7 +188,6 @@ def client_signin():
         else:
             print("Invalid ID or password, please try again.")
  
-
 def client_signin_signup():
     while True:
         try:
@@ -221,8 +241,6 @@ def role_verification():
         else:
             return role_number
             break
-
-    
 
 def main():
     print('===============================================')

@@ -18,6 +18,7 @@ class Account:
     
     #deposit function
     def deposit(self, amount, conn):
+        print("hi")
         #update balance
         self.balance += amount
         return self.balance
