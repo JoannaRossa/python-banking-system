@@ -13,6 +13,7 @@ def create_table():
         CLIENT_PASSWORD INT NOT NULL,
         FIRST_NAME TEXT NOT NULL, 
         LAST_NAME TEXT NOT NULL, 
+        OCCUPATION TEXT NOT NULL,
         AGE TEXT NOT NULL,
         GENDER TEXT NOT NULL,
         STREET TEXT NOT NULL,
@@ -26,6 +27,7 @@ def create_table():
     c.execute('''CREATE TABLE IF NOT EXISTS CLIENTS_ACCOUNT_CREATION (
         FIRST_NAME TEXT NOT NULL, 
         LAST_NAME TEXT NOT NULL, 
+        OCCUPATION TEXT NOT NULL,
         AGE TEXT NOT NULL,
         GENDER TEXT NOT NULL,
         STREET TEXT NOT NULL,
@@ -36,7 +38,6 @@ def create_table():
         EMAIL TEXT NOT NULL,
         ACCOUNT_TYPE TEXT NOT NULL)''')
     
-
     # Create table - ACCOUNTS 
     c.execute('''CREATE TABLE IF NOT EXISTS ACCOUNTS (
         ACCOUNT_NUMBER INT PRIMARY KEY NOT NULL,
@@ -46,7 +47,6 @@ def create_table():
         CURRENT_BALANCE REAL NOT NULL,
         FOREIGN KEY(CLIENT_ID) REFERENCES CLIENT(CLIENT_ID))''')
 
-    
     # Create table - TRANSACTIONS
     c.execute('''CREATE TABLE IF NOT EXISTS TRANSACTIONS (
         TRANSACTION_ID INT PRIMARY KEY NOT NULL,
@@ -73,7 +73,11 @@ def create_table():
 conn.commit()
 
 def fetch_account_details():
-    pass
+    c.execute("SELECT * from ACCOUNTS WHERE ACCOUNT_NUMBER=? ", (account_number))
+    rows = c.fetchall()
+    if len(rows)>0:
+        return rows[0]
+    return None
 
 def fetch_client_details(client_id, client_password):
     c.execute("SELECT * from CLIENTS WHERE CLIENT_ID=? AND CLIENT_PASSWORD=? ", (client_id, client_password))
@@ -96,8 +100,8 @@ def data_entry():
     c.execute('''INSERT INTO MANAGER(MANAGER_ID, MANAGER_PASSWORD, FIRST_NAME, LAST_NAME, AGE, GENDER, STREET, CITY, PROVINCE, POSTAL_CODE, PHONE, EMAIL) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)''',
                 (19051999, 1973, 'Joanna', 'Rossa', '21', 'F', '22 Heaven St.', 'Aurora', 'ON', 'L8T4J2', '2897009049', 'asia.rossa@hotmail.com'))
     
-    c.execute('''INSERT INTO CLIENTS(CLIENT_ID, CLIENT_PASSWORD, FIRST_NAME, LAST_NAME, AGE, GENDER, STREET, CITY, PROVINCE, POSTAL_CODE, PHONE, EMAIL) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)''',
-                (22011973, 1999, 'Edyta', 'Holyst', '47', 'F', '888 Pine St.', 'Burlington', 'ON', 'N5X6JZ', '2894894010', 'edyta-holyst@wp.pl'))
+    c.execute('''INSERT INTO CLIENTS(CLIENT_ID, CLIENT_PASSWORD, FIRST_NAME, LAST_NAME, OCCUPATION, AGE, GENDER, STREET, CITY, PROVINCE, POSTAL_CODE, PHONE, EMAIL) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''',
+                (22011973, 1999, 'Edyta', 'Holyst', 'Business Services', '47', 'F', '888 Pine St.', 'Burlington', 'ON', 'N5X6JZ', '2894894010', 'edyta-holyst@wp.pl'))
     
     c.execute('''INSERT INTO ACCOUNTS(ACCOUNT_NUMBER, ACCOUNT_STATUS, ACCOUNT_TYPE, CLIENT_ID, CURRENT_BALANCE) VALUES (?,?,?,?,?)''',
                 (11111111, 'Open', 'Chequing', 22011973, 10000))
@@ -111,6 +115,5 @@ def data_entry():
 
 # create_table()
 # data_entry()
-# fetch_client_details(client_id,client_password)
 
-# conn.commit()
+

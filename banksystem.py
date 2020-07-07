@@ -2,7 +2,7 @@ from db import fetch_manager_details
 from manager import Manager
 from db import fetch_client_details
 from client import Client
-
+from account import Account
 
 def manager_signin():
     while True:
@@ -49,18 +49,18 @@ def savings_account():
     while True:
         try:
             select_account_operation = int(input("Select: 1 - deposit, 2 - withdrawal, 3 - transfer, 4 - account details: "))
-            while select_menu_option < 5 and select_menu_option < 0:
-                if select_menu_option == 1:
+            while select_account_operation < 5 and select_account_operation > 0:
+                if select_account_operation == 1:
                     print("Deposit")
                     # deposit will be our next function
                     break
-                elif select_menu_option == 2:
+                elif select_account_operation == 2:
                     print("Withdraw")
                     break
-                elif select_menu_option == 3:
+                elif select_account_operation == 3:
                     print("Transfer")
                     break
-                elif select_menu_option == 4:
+                elif select_account_operation == 4:
                     print("Account details")
                     break
             else:
@@ -77,17 +77,17 @@ def chequing_account():
     while True:
         try:
             select_account_operation = int(input("Select: 1 - deposit, 2 - withdrawal, 3 - transfer, 4 - account details: "))
-            while select_menu_option < 5 and select_menu_option < 0:
-                if select_menu_option == 1:
+            while select_account_operation < 5 and select_account_operation > 0:
+                if select_account_operation == 1:
                     print("Deposit")
                     break
-                elif select_menu_option == 2:
+                elif select_account_operation == 2:
                     print("Withdraw")
                     break
-                elif select_menu_option == 3:
+                elif select_account_operation == 3:
                     print("Transfer")
                     break
-                elif select_menu_option == 4:
+                elif select_account_operation == 4:
                     print("Account details")
                     break
             else:                             
@@ -134,7 +134,21 @@ def client_account_menu():
             break
 
 def client_signup():
-    pass
+    print("Please provide your personal information")
+    sign_up_first_name = input("First name: ")
+    sign_up_last_name = input("Last name: ")
+    sign_up_occupation = input("Occupation: ")
+    sign_up_age = input("Age: ")
+    sign_up_gender = input("Gender: ")
+    sign_up_street = input("Street: ")
+    sign_up_city = input("City: ")
+    sign_up_province = input("Province: ")
+    sign_up_postal_code = input("Postal Code: ")
+    sign_up_phone = input("Phone: ")
+    sign_up_email = input("E-mail: ")
+    sign_up_account_type = int(input("Select account type you wish to open: 1 - chequing, 2 - savings, 3 - both: "))
+
+    # client_signin()
 
 def client_signin():
     while True:
@@ -148,6 +162,7 @@ def client_signin():
                 # Successful login
                 return Client(client_id, client_password, client_details[2], client_details[3],client_details[4],client_details[5],client_details[6],client_details[7],client_details[8],client_details[9],client_details[10],client_details[11])
             print("Successful login") 
+            client_account_menu()
             break   
         else:
             print("Invalid ID or password, please try again.")
@@ -160,13 +175,11 @@ def client_signin_signup():
             while sign_in_sign_up < 3 and sign_in_sign_up > 0:
                 if sign_in_sign_up == 1:
                     print("Sign up - create a new client account")
-                    # client_signup()
-                    
+                    client_signup()
                     break
                 elif sign_in_sign_up == 2:
                     print("Sign in to an existing client account")
                     client_signin()
-                    
                     break
             else:
                 print("Try again, please enter 1 to sign up or 2 to sign in. ")
