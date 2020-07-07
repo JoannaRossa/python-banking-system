@@ -1,6 +1,7 @@
 import sqlite3
 from account import Account
 from client import Client
+from manager import Manager
 
 conn = sqlite3.connect('bank_database.db')  # You can create a new database by changing the name within the quotes
 c = conn.cursor() # The database will be saved in the location where your 'py' file is saved
@@ -71,9 +72,12 @@ def create_table():
 
 conn.commit()
 
+def fetch_account_details():
+    pass
+
 def fetch_client_details(client_id, client_password):
     c.execute("SELECT * from CLIENTS WHERE CLIENT_ID=? AND CLIENT_PASSWORD=? ", (client_id, client_password))
-    rows = c.fetchall
+    rows = c.fetchall()
     if len(rows)>0:
         return rows[0]
     return None
@@ -94,12 +98,19 @@ def data_entry():
     
     c.execute('''INSERT INTO CLIENTS(CLIENT_ID, CLIENT_PASSWORD, FIRST_NAME, LAST_NAME, AGE, GENDER, STREET, CITY, PROVINCE, POSTAL_CODE, PHONE, EMAIL) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)''',
                 (22011973, 1999, 'Edyta', 'Holyst', '47', 'F', '888 Pine St.', 'Burlington', 'ON', 'N5X6JZ', '2894894010', 'edyta-holyst@wp.pl'))
+    
+    c.execute('''INSERT INTO ACCOUNTS(ACCOUNT_NUMBER, ACCOUNT_STATUS, ACCOUNT_TYPE, CLIENT_ID, CURRENT_BALANCE) VALUES (?,?,?,?,?)''',
+                (11111111, 'Open', 'Chequing', 22011973, 10000))
+    
+    c.execute('''INSERT INTO TRANSACTIONS(TRANSACTION_ID, ACCOUNT_NUMBER, TRANSACTION_TYPE, TRANSACTION_AMOUNT) VALUES (?,?,?,?)''',
+                (22222222, 11111111, 'Deposit', 1000))
+    
     conn.commit()
     c.close()
     conn.close()
 
-create_table()
+# create_table()
 # data_entry()
-
+# fetch_client_details(client_id,client_password)
 
 # conn.commit()

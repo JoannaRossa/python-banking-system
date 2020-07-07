@@ -1,5 +1,6 @@
 from db import fetch_manager_details
 from manager import Manager
+from db import fetch_client_details
 from client import Client
 
 
@@ -18,9 +19,6 @@ def manager_signin():
             break
         else:
             print("Invalid ID or password, please try again.")  
-            
-       
-   
 
 def contact_manager():
     while True:
@@ -194,8 +192,7 @@ def role_verification():
                     print("Welcome to the manager account")
                     manager = manager_signin()
                     break
-                
-                    break  
+                 
                 elif role_number == 3:
                     print("Welcome to the maintenance account")
                     # maintenance = maintenance_signin()
