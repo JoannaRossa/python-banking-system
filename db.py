@@ -1,7 +1,5 @@
 import sqlite3
-from account import Account
-from client import Client
-from manager import Manager
+
 
 conn = sqlite3.connect('bank_database.db')  # You can create a new database by changing the name within the quotes
 c = conn.cursor() # The database will be saved in the location where your 'py' file is saved
@@ -86,8 +84,10 @@ def fetch_client_details(client_id, client_password):
         return rows[0]
     return None
 
-def insert_client_details(client_id ):
-    pass
+def insert_client_form_details(sign_up_first_name, sign_up_last_name,sign_up_occupation,sign_up_age,sign_up_gender,sign_up_street,sign_up_city,sign_up_province,sign_up_postal_code, sign_up_phone,sign_up_email,sign_up_account_type):
+    c.execute('''INSERT INTO CLIENTS_ACCOUNT_CREATION(FIRST_NAME, LAST_NAME, OCCUPATION, AGE, GENDER, STREET, CITY, PROVINCE, POSTAL_CODE, PHONE, EMAIL) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)''',
+                (sign_up_first_name, sign_up_last_name,sign_up_occupation,sign_up_age,sign_up_gender,sign_up_street,sign_up_city,sign_up_province,sign_up_postal_code, sign_up_phone,sign_up_email, sign_up_account_type))
+    conn.commit()
 
 def fetch_manager_details(manager_id, manager_password):
     c.execute("SELECT * from MANAGER WHERE MANAGER_ID=? AND MANAGER_PASSWORD=? ", (manager_id, manager_password))
