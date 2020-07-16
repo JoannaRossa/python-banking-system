@@ -15,14 +15,9 @@ class Client:
         self.phone = phone
         self.email = email
 
-    def get_client_details(self):
-        return (self.client_id, self.client_password, self.first_name, self.last_name, self.occupation, self.age, self.gender, self.street, self.city, self.province, self.postal_code, self.phone, self.email)
+   
         
-    #enter ur pin
-    
-    #which account
 
-    #def getAccount():
 
 
 

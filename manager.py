@@ -15,11 +15,7 @@ class Manager:
         self.phone = phone
         self.email = email
 
-    def manager_identification():
-        return (self.manager_id, self.manager_password)
-
-    def get_client_details(self):
-        return (self.manager_id, self.manager_password, self.first_name, self.last_name, self.age, self.gender, self.street, self.city, self.province, self.postal_code, self.phone, self.email)
+  
         
 
 
