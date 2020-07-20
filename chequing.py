@@ -1,3 +1,7 @@
+from account import Account
+
+class Chequing(Account)   
+    
     def chequing_tier(interest, balance):
         if (balance<=200):
             self.interest=0.01

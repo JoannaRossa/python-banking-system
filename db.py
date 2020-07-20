@@ -71,32 +71,42 @@ def create_table():
 
 conn.commit()
 
-def fetch_total_balance():
-    pass
+def fetch_all_transactions(account_number):
+    c.execute("SELECT * from TRANSACTIONS WHERE ACCOUNT_NUMBER=?", (account_number))
+    rows = c.fetchall()
+    if len(rows)>0:
+        return rows[0]
+    return None
 
-def fetch_balance(current_balance, account_type):
-    c.execute("SELECT * from ACCOUNTS WHERE CURRENT_BALANCE=? AND ACCOUNT_TYPE=?", (current_balance, account_type))
+
+def insert_transactions(transaction_id, account_number, transaction_type, transaction_amount):
+    c.execute('''INSERT INTO TRANSACTIONS(TRANSACTION_ID, ACCOUNT_NUMBER, TRANSACTION_TYPE, TRANSACTION_AMOUNT) VALUES (?,?,?,?)''',
+                (transaction_id, account_number, transaction_type, transaction_amount))
+    conn.commit()
+
+
+
+def fetch_transaction_details(transaction_id):
+    c.execute("SELECT * from TRANSACTIONS WHERE TRANSACTION_ID=? ", (transaction_id))
     rows = c.fetchall()
     if len(rows)>0:
         return rows[0]
     return None
 
 # this works
-def fetch_account_details(account_number):
-    c.execute("SELECT * from ACCOUNTS WHERE ACCOUNT_NUMBER=? ", (account_number))
+
+def fetch_all_accounts(client_id):
+    c.execute("SELECT * from ACCOUNTS WHERE CLIENT_ID=?", (client_id))
     rows = c.fetchall()
-    if len(rows)>0:
+    if len(rows) > 0:
         return rows[0]
     return None
-
-# this works
 
 def fetch_account_details(client_id, account_type):
     c.execute("SELECT * from ACCOUNTS WHERE CLIENT_ID=? AND ACCOUNT_TYPE=?", (client_id, account_type))
     rows = c.fetchall()
     if len(rows) > 0:
         return rows[0]
-
     return None
 
 def fetch_client_details(client_id, client_password):
@@ -156,6 +166,9 @@ def data_entry():
     
     c.execute('''INSERT INTO ACCOUNTS(ACCOUNT_NUMBER, ACCOUNT_STATUS, ACCOUNT_TYPE, CLIENT_ID, CURRENT_BALANCE) VALUES (?,?,?,?,?)''',
                 (22222222, 'Open', 'Savings', 22011973, 20000))
+    
+    c.execute('''INSERT INTO ACCOUNTS(ACCOUNT_NUMBER, ACCOUNT_STATUS, ACCOUNT_TYPE, CLIENT_ID, CURRENT_BALANCE) VALUES (?,?,?,?,?)''',
+                (33333333, 'Open', 'Savings', 22011973, 30000))
     
     c.execute('''INSERT INTO TRANSACTIONS(TRANSACTION_ID, ACCOUNT_NUMBER, TRANSACTION_TYPE, TRANSACTION_AMOUNT) VALUES (?,?,?,?)''',
                 (22222222, 11111111, 'Deposit', 1000))

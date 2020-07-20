@@ -1,11 +1,30 @@
-from db import fetch_manager_details, fetch_client_details, insert_client_form_details, fetch_client_form_details, fetch_account_details
+from db import fetch_manager_details, fetch_client_details, insert_client_form_details, fetch_client_form_details, fetch_account_details, fetch_all_accounts, insert_transactions
 from manager import Manager
 from client import Client
 from account import Account
+from transactions import *
 
 
-def exit_system():
-    pass
+def client_return_to(client):
+    while True:
+        try:
+            return_to=int(input("Select from the following menu: 1 - return to client account menu, 2 - end your session: "))
+            while return_to < 3 and return_to > 0:
+                if return_to == 1:
+                    client_account_menu(client)
+                    break
+                elif return_to == 2:
+                    main()
+                    break
+            else:
+                print("Try again, please enter option 1 or 2.")
+                continue
+        except ValueError:
+            print("Enter a number. Try again.")
+            continue
+        else:
+            return return_to
+            break
 def manager_account_menu():
     while True:
         try:
@@ -203,17 +222,21 @@ def savings_account(client):
             while select_account_operation < 5 and select_account_operation > 0:
                 if select_account_operation == 1:
                     print("Deposit")
-                    savings_deposit(balance_savings)
+                    deposit(account_number)
                     # deposit will be our next function
+                
                     break
                 elif select_account_operation == 2:
                     print("Withdraw")
                     # withdrawal will be our next function
+                    
                     break
                 elif select_account_operation == 3:
                     print("Transfer")
                     # transfer will be our next function
+                    
                     break
+        
                 elif select_account_operation == 4:
                     print("Account details")
                     print(' number     status  type      client ID balance')
@@ -231,6 +254,7 @@ def savings_account(client):
         else:
             return select_account_operation
             break
+        
 # WORK HERE WITH existing DB AND CLASSES
 def chequing_account(client):
     while True:
@@ -239,7 +263,19 @@ def chequing_account(client):
             while select_account_operation < 6 and select_account_operation > 0:
                 if select_account_operation == 1:
                     print("Deposit")
-                    deposit_chequing()
+                    while True:
+                        try:
+                            transaction_amount = float(input("Enter amount you wish to deposit: "))
+                            account_balance += transaction_amount
+                            insert_transactions(transaction_id, account_number, transaction_type, transaction_amount)
+                            return account_balance
+                            break
+                        except ValueError:
+                            print("Enter a number. Try again.")
+                        else:
+                            return transaction_amount
+                            break
+    
                     break
                 elif select_account_operation == 2:
                     print("Withdraw")
@@ -252,13 +288,14 @@ def chequing_account(client):
                     print(' number     status  type       client ID balance')
                     account_details = fetch_account_details(client.client_id, 'Chequing')
                     # show account detals
-                    print(account_details)  
+                    print(account_details) 
+                    client_return_to(client)
                     break
                 elif select_account_operation == 5:
                     print("Chequing account balance")
                     break
             else:                             
-                print("Try again, please enter option number from 1 to 4: ")
+                print("Try again, please enter option number from 1 to 5: ")
                 continue
         except ValueError:
             print("Enter a number. Try again.")
@@ -270,15 +307,17 @@ def chequing_account(client):
 def client_account_menu(client):
     while True:
         try:
-            select_menu_option = int(input("Select from the following menu: 1 - access chequing account, 2 - access savings account, 3 - access personal details, 4 - show total balance, 5 - contact the manager: "))
+            select_menu_option = int(input("Select from the following menu: 1 - access chequing account, 2 - access savings account, 3 - access personal details, 4 - show accounts, 5 - contact the manager: "))
             while select_menu_option < 6 and select_menu_option > 0:
                 if select_menu_option == 1:
                     print("Chequing account")
+                    chequing_account_fetch = fetch_account_details(client.client_id,'Chequing')
+                    print(chequing_account_fetch)
                     chequing_account(client)
                     break
                 elif select_menu_option == 2:
                     print("Savings account")
-
+                    savings_account_fetch = fetch_account_details(client.client_id,'Savings')
                     savings_account(client)
                     break
                 # works
@@ -289,8 +328,10 @@ def client_account_menu(client):
                     print(personal_details)
                     break
                 elif select_menu_option == 4:
-                    print("Your balance")
-                    # total_balance(current_balance)
+                    print("Your accounts")
+                    accounts = fetch_all_accounts(client.client_id)
+                    print(accounts)
+                    
                     break
                 elif select_menu_option == 5:
                     print("Contact the manager")

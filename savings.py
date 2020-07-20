@@ -1,5 +1,6 @@
+from account import Account
 
-
+class Savings(Account)
     def savings_tier(balance):
         if (balance<=200):
             self.interest=0.01
