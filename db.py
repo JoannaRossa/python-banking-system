@@ -71,6 +71,16 @@ def create_table():
 
 conn.commit()
 
+def insert_transactions(client_id, account_type):
+    c.execute('''INSERT INTO TRANSACTIONS(TRANSACTION_ID, ACCOUNT_NUMBER, TRANSACTION_TYPE, TRANSACTION_AMOUNT) VALUES (?,?,?,?)''',
+                (transaction_id, account_number, transaction_type, transaction_amount))
+    conn.commit()
+
+    account_details = fetch_account_details(client.client_id, 'Chequing')
+
+def open_account():
+    pass
+
 def fetch_all_transactions(account_number):
     c.execute("SELECT * from TRANSACTIONS WHERE ACCOUNT_NUMBER=?", (account_number))
     rows = c.fetchall()

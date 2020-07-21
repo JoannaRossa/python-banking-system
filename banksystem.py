@@ -14,6 +14,7 @@ def client_return_to(client):
                     client_account_menu(client)
                     break
                 elif return_to == 2:
+                    print("Thank you for being with JOJO")
                     main()
                     break
             else:
@@ -32,11 +33,13 @@ def manager_account_menu():
             while select_menu_option < 3 and select_menu_option > 0:
                 if select_menu_option == 1:
                     print("Account creation requests")
-                    open_new_account()
+                    
+                    # return Client(first_name, last_name,occupation,gender, street,city, province,postal_code, phone,email,account_type)
+                    # open_new_account()
                     break
                 elif select_menu_option == 2:
                     print("Account closure requests")
-                    close_existing_account()
+                    close_existing_account(client)
                     break
             else:
                 print("Try again, please enter option 1 or 2.")
@@ -61,7 +64,7 @@ def manager_signin():
         else:
             print("Invalid ID or password, please try again.")  
 
-def close_existing_account():
+def close_existing_account(client):
     while True:
         try:
             close_account_option = int(input("Select: 1 - to close chequing account, 2 - to close savings account, 3 - to close both accounts (close client account with Bank of JOJO): "))
@@ -75,7 +78,7 @@ def close_existing_account():
                     break
                 elif close_account_option == 3:
                     print("Close both accounts (close client account with Bank of JOJO")
-                    delete_client_details(client_id, client_password)
+                    delete_client_details(client.client_id, client.client_password)
                     break
             else:
                 print("Error - enter option number from 1 to 2: ")
@@ -92,6 +95,21 @@ def close_existing_account():
 
     # delete client profile entirely by client id and client password
     delete_client_details(client_id, client_password)
+
+
+def open_chequing_account():
+    while True:
+        account_number = input("Set new account number: ")
+        account_status = 'Open'
+        account_type = 'Chequing'
+        client_id = client_id
+        current_balance = 0
+        existing_accounts = fetch_all_accounts(client_id)
+        if existing_accounts is not None and assign_account_number != existing_accounts:
+            open_account(account_number,account_status, account_type. client_id, current_balance)
+        else:
+            print("Invalid ID or password, please try again.") 
+
 def open_new_account():
     while True:
         try:
@@ -99,7 +117,7 @@ def open_new_account():
             while open_account_option < 4 and open_account_option > 0:
                 if open_account_option == 1:
                     print("Open chequing account")
-                    # client_chequing_account = delete
+                    
                     break
                 elif open_account_option == 2:
                     print("Open savings account")
@@ -120,7 +138,7 @@ def open_new_account():
     # see requests from existing clients
 
     # # see requests from new clients
-    # display_new_client_requests = fetch_client_form_details(sign_up_first_name, sign_up_last_name,sign_up_occupation,sign_up_age,sign_up_gender, sign_up_street,sign_up_city, sign_up_province,sign_up_postal_code, sign_up_phone,sign_up_email,sign_up_account_type)
+    # 
     # if display_new_client_requests is not None:
         # pass       
 #     # if client exists in the db
@@ -136,7 +154,6 @@ def contact_manager():
             while contact_manager_option < 3 and contact_manager_option > 0:
                 if contact_manager_option == 1:
                     print("Open a new account")
-                    # client_form_detail = fetch_client_form_details(sign_up_first_name, sign_up_last_name,sign_up_occupation,sign_up_age,sign_up_gender, sign_up_street,sign_up_city, sign_up_province,sign_up_postal_code, sign_up_phone,sign_up_email,sign_up_account_type)
                     open_new_account()
                     break
                 elif contact_manager_option == 2:
@@ -201,18 +218,11 @@ def client_signup_form():
     sign_up_postal_code = input("Postal Code: ")
     sign_up_phone = input("Phone: ")
     sign_up_email = input("E-mail: ")
-    # intert input into "input database"
     sign_up_account_type = choose_new_account_type()
     insert_client_form_details(sign_up_first_name, sign_up_last_name,sign_up_occupation,sign_up_age,sign_up_gender,sign_up_street,sign_up_city,sign_up_province,sign_up_postal_code,sign_up_phone,sign_up_email, sign_up_account_type)
-    
+    test = fetch_client_form_details(sign_up_first_name, sign_up_last_name,sign_up_occupation,sign_up_age,sign_up_gender,sign_up_street,sign_up_city,sign_up_province,sign_up_postal_code,sign_up_phone,sign_up_email, sign_up_account_type)
+    print(test)
 
-def total_balance():
-    # balance sum of all possessed accounts
-    pass
-
-def personal_details():
-    # accounts table
-    pass
 
 # WORK HERE WITH existing DB AND CLASSES
 def savings_account(client):
@@ -242,8 +252,7 @@ def savings_account(client):
                     print(' number     status  type      client ID balance')
                     account_details = fetch_account_details(client.client_id, 'Savings')
                     print(account_details)
-                    # account_saving = Saving()
-                    # account details will be our next function
+                    client_return_to(client)
                     break
             else:
                 print("Error - enter option number from 1 to 4: ")
@@ -275,7 +284,6 @@ def chequing_account(client):
                         else:
                             return transaction_amount
                             break
-    
                     break
                 elif select_account_operation == 2:
                     print("Withdraw")
