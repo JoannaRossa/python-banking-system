@@ -245,7 +245,6 @@ def savings_account(client):
                             current_balance = float(balance) + float(transaction_amount)
                             print("Your new savings account balance is " + str(current_balance))
                             update_balance(client.client_id, current_balance, "Savings")
-                            # insert_transactions(transaction_id, account_number, transaction_type, transaction_amount)
                             client_return_to(client)
                             return current_balance
                             break
@@ -301,8 +300,8 @@ def savings_account(client):
                                             new_chequing_balance = float(current_chequing_balance) + float(transaction_amount)
                                             print("Your new savings account balance is " + str(new_savings_balance))
                                             print("Your new chequing account balance is " + str(new_chequing_balance))
-                                            update_balance(client.client_id, current_balance, "Savings")
-                                            update_balance(client.client_id, current_balance, "Chequing")
+                                            update_balance(client.client_id, new_savings_balance, "Savings")
+                                            update_balance(client.client_id, new_chequing_balance, "Chequing")
                                             client_return_to(client)
                                             return new_savings_balance, new_chequing_balance
                                             break
