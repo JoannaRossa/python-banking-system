@@ -1,4 +1,4 @@
-from db import fetch_manager_details, fetch_client_details, insert_client_form_details, fetch_client_form_details, fetch_account_details, fetch_all_accounts, insert_transactions
+from db import fetch_manager_details, fetch_client_details, insert_client_form_details, fetch_client_form_details, fetch_account_details, insert_transactions, update_balance
 from manager import Manager
 from client import Client
 from account import Account
@@ -237,16 +237,17 @@ def savings_account(client):
                         try:
                             transaction_amount = float(input("Enter amount you wish to deposit: "))
                             account_details = fetch_account_details(client.client_id, "Savings")
-                            current_balance = account_details[4]
+                            balance = account_details[4]
                             # account = Account(account_details[4])
                             # account.
-                            print("Your savings account balance is " + str(current_balance))
+                            print("Your savings account balance is " + str(balance))
                             print("You are depositing " + str(transaction_amount))
-                            new_balance = float(current_balance) + float(transaction_amount)
-                            print("Your new savings account balance is " + str(new_balance))
+                            current_balance = float(balance) + float(transaction_amount)
+                            print("Your new savings account balance is " + str(current_balance))
+                            update_balance(client.client_id, current_balance, "Savings")
                             # insert_transactions(transaction_id, account_number, transaction_type, transaction_amount)
                             client_return_to(client)
-                            return new_balance
+                            return current_balance
                             break
                         except ValueError:
                             print("Enter a number. Try again.")
@@ -260,16 +261,16 @@ def savings_account(client):
                         try:
                             transaction_amount = float(input("Enter amount you wish to withdraw: "))
                             account_details = fetch_account_details(client.client_id, "Savings")
-                            current_balance = account_details[4]
+                            balance = account_details[4]
                             # account = Account(account_details[4])
                             # account.
-                            print("Your savings account balance is " + str(current_balance))
+                            print("Your savings account balance is " + str(balance))
                             print("You are withdrawing " + str(transaction_amount))
-                            new_balance = float(current_balance) - float(transaction_amount)
-                            print("Your new savings account balance is " + str(new_balance))
-                            # insert_transactions(transaction_id, account_number, transaction_type, transaction_amount)
+                            current_balance = float(balance) - float(transaction_amount)
+                            print("Your new savings account balance is " + str(current_balance))
+                            update_balance(client.client_id, current_balance, "Savings")
                             client_return_to(client)
-                            return new_balance
+                            return current_balance
                             break
                         except ValueError:
                             print("Enter a number. Try again.")
@@ -300,7 +301,8 @@ def savings_account(client):
                                             new_chequing_balance = float(current_chequing_balance) + float(transaction_amount)
                                             print("Your new savings account balance is " + str(new_savings_balance))
                                             print("Your new chequing account balance is " + str(new_chequing_balance))
-                                            # insert_transactions(transaction_id, account_number, transaction_type, transaction_amount)
+                                            update_balance(client.client_id, current_balance, "Savings")
+                                            update_balance(client.client_id, current_balance, "Chequing")
                                             client_return_to(client)
                                             return new_savings_balance, new_chequing_balance
                                             break
@@ -326,7 +328,8 @@ def savings_account(client):
                                             new_savings_balance = float(current_savings_balance) + float(transaction_amount)
                                             print("Your new chequing account balance is " + str(new_chequing_balance))
                                             print("Your new savings account balance is " + str(new_savings_balance))
-                                            # insert_transactions(transaction_id, account_number, transaction_type, transaction_amount)
+                                            update_balance(client.client_id, new_savings_balance, "Savings")
+                                            update_balance(client.client_id, new_chequing_balance, "Chequing")
                                             client_return_to(client)
                                             return new_chequing_balance, new_savings_balance
                                             break
@@ -380,16 +383,16 @@ def chequing_account(client):
                         try:
                             transaction_amount = float(input("Enter amount you wish to deposit: "))
                             account_details = fetch_account_details(client.client_id, "Chequing")
-                            current_balance = account_details[4]
+                            balance = account_details[4]
                             # account = Account(account_details[4])
                             # account.
-                            print("Your chequing account balance is " + str(current_balance))
+                            print("Your chequing account balance is " + str(balance))
                             print("You are depositing " + str(transaction_amount))
-                            new_balance = float(current_balance) + float(transaction_amount)
-                            print("Your new chequing account balance is " + str(new_balance))
-                            # insert_transactions("Deposit", transaction_amount)
+                            current_balance = float(current_balance) + float(transaction_amount)
+                            print("Your new chequing account balance is " + str(current_balance))
+                            update_balance(client.client_id, current_balance, "Chequing")
                             client_return_to(client)
-                            return new_balance
+                            return current_balance
                             break
                         except ValueError:
                             print("Enter a number. Try again.")
@@ -403,16 +406,16 @@ def chequing_account(client):
                         try:
                             transaction_amount = float(input("Enter amount you wish to withdraw: "))
                             account_details = fetch_account_details(client.client_id, "Chequing")
-                            current_balance = account_details[4]
+                            balance = account_details[4]
                             # account = Account(account_details[4])
                             # account.
-                            print("Your chequing account balance is " + str(current_balance))
+                            print("Your chequing account balance is " + str(balance))
                             print("You are withdrawing " + str(transaction_amount))
-                            new_balance = float(current_balance) - float(transaction_amount)
-                            print("Your new chequing account balance is " + str(new_balance))
-                            # insert_transactions(transaction_id, account_number, transaction_type, transaction_amount)
+                            current_balance = float(balance) - float(transaction_amount)
+                            print("Your new chequing account balance is " + str(current_balance))
+                            update_balance(client.client_id, current_balance, "Chequing")
                             client_return_to(client)
-                            return new_balance
+                            return current_balance
                             break
                         except ValueError:
                             print("Enter a number. Try again.")
@@ -443,7 +446,8 @@ def chequing_account(client):
                                             new_savings_balance = float(current_savings_balance) + float(transaction_amount)
                                             print("Your new chequing account balance is " + str(new_chequing_balance))
                                             print("Your new savings account balance is " + str(new_savings_balance))
-                                            # insert_transactions(transaction_id, account_number, transaction_type, transaction_amount)
+                                            update_balance(client.client_id, new_savings_balance, "Savings")
+                                            update_balance(client.client_id, new_chequing_balance, "Chequing")
                                             client_return_to(client)
                                             return new_chequing_balance, new_savings_balance
                                             break
@@ -469,7 +473,8 @@ def chequing_account(client):
                                             new_chequing_balance = float(current_chequing_balance) + float(transaction_amount)
                                             print("Your new savings account balance is " + str(new_savings_balance))
                                             print("Your new chequing account balance is " + str(new_chequing_balance))
-                                            # insert_transactions(transaction_id, account_number, transaction_type, transaction_amount)
+                                            update_balance(client.client_id, new_savings_balance, "Savings")
+                                            update_balance(client.client_id, new_chequing_balance, "Chequing")
                                             client_return_to(client)
                                             return new_savings_balance, new_chequing_balance
                                             break

@@ -89,6 +89,9 @@ def fetch_all_transactions(account_number):
         return rows[0]
     return None
 
+def update_balance(client_id, current_balance, account_type):
+    c.execute('''UPDATE ACCOUNTS SET CURRENT_BALANCE=? WHERE CLIENT_ID=? AND ACCOUNT_TYPE=?''', (current_balance, client_id, account_type))
+    conn.commit()
 
 def insert_transactions(transaction_type, transaction_amount):
     c.execute('''INSERT INTO TRANSACTIONS(TRANSACTION_TYPE, TRANSACTION_AMOUNT) VALUES (?,?)''',
@@ -187,6 +190,11 @@ def data_entry():
     conn.commit()
     c.close()
     conn.close()
+
+
+# sql = 'DELETE FROM ACCOUNTS WHERE ACCOUNT_NUMBER=?'
+# c.execute(sql, ('33333333',))
+# conn.commit()
 
 # create_table()
 # data_entry()
