@@ -29,11 +29,12 @@ def client_return_to(client):
 def manager_account_menu():
     while True:
         try:
-            select_menu_option=int(input("Select from the following menu: 1 - view account requests, 2 - close an existing account: "))
+            select_menu_option=int(input("Select from the following menu: 1 - view ALL account requests, 2 - close an existing account: "))
             while select_menu_option < 3 and select_menu_option > 0:
                 if select_menu_option == 1:
                     print("Account creation requests")
-                    
+                        # test = fetch_client_form_details(sign_up_first_name, sign_up_last_name,sign_up_occupation,sign_up_age,sign_up_gender,sign_up_street,sign_up_city,sign_up_province,sign_up_postal_code,sign_up_phone,sign_up_email, sign_up_account_type)
+                        # print(test)
                     # return Client(first_name, last_name,occupation,gender, street,city, province,postal_code, phone,email,account_type)
                     # open_new_account()
                     break
@@ -220,33 +221,129 @@ def client_signup_form():
     sign_up_email = input("E-mail: ")
     sign_up_account_type = choose_new_account_type()
     insert_client_form_details(sign_up_first_name, sign_up_last_name,sign_up_occupation,sign_up_age,sign_up_gender,sign_up_street,sign_up_city,sign_up_province,sign_up_postal_code,sign_up_phone,sign_up_email, sign_up_account_type)
-    test = fetch_client_form_details(sign_up_first_name, sign_up_last_name,sign_up_occupation,sign_up_age,sign_up_gender,sign_up_street,sign_up_city,sign_up_province,sign_up_postal_code,sign_up_phone,sign_up_email, sign_up_account_type)
-    print(test)
-
+ 
+def sufficient_and_insufficient_funds():
+    pass
 
 # WORK HERE WITH existing DB AND CLASSES
 def savings_account(client):
     while True:
         try:
             select_account_operation = int(input("Select: 1 - deposit, 2 - withdrawal, 3 - transfer, 4 - account details, 5 - savings account balance: "))
-            while select_account_operation < 5 and select_account_operation > 0:
+            while select_account_operation < 6 and select_account_operation > 0:
                 if select_account_operation == 1:
                     print("Deposit")
-                    deposit(account_number)
-                    # deposit will be our next function
-                
+                    while True:
+                        try:
+                            transaction_amount = float(input("Enter amount you wish to deposit: "))
+                            account_details = fetch_account_details(client.client_id, "Savings")
+                            current_balance = account_details[4]
+                            # account = Account(account_details[4])
+                            # account.
+                            print("Your savings account balance is " + str(current_balance))
+                            print("You are depositing " + str(transaction_amount))
+                            new_balance = float(current_balance) + float(transaction_amount)
+                            print("Your new savings account balance is " + str(new_balance))
+                            # insert_transactions(transaction_id, account_number, transaction_type, transaction_amount)
+                            client_return_to(client)
+                            return new_balance
+                            break
+                        except ValueError:
+                            print("Enter a number. Try again.")
+                        else:
+                            return transaction_amount
+                            break    
                     break
                 elif select_account_operation == 2:
                     print("Withdraw")
-                    # withdrawal will be our next function
-                    
+                    while True:
+                        try:
+                            transaction_amount = float(input("Enter amount you wish to withdraw: "))
+                            account_details = fetch_account_details(client.client_id, "Savings")
+                            current_balance = account_details[4]
+                            # account = Account(account_details[4])
+                            # account.
+                            print("Your savings account balance is " + str(current_balance))
+                            print("You are withdrawing " + str(transaction_amount))
+                            new_balance = float(current_balance) - float(transaction_amount)
+                            print("Your new savings account balance is " + str(new_balance))
+                            # insert_transactions(transaction_id, account_number, transaction_type, transaction_amount)
+                            client_return_to(client)
+                            return new_balance
+                            break
+                        except ValueError:
+                            print("Enter a number. Try again.")
+                        else:
+                            return transaction_amount
+                            break
                     break
                 elif select_account_operation == 3:
                     print("Transfer")
-                    # transfer will be our next function
-                    
+                    while True:
+                        try:
+                            transfer_to = int(input("Select 1 - to transfer from savings to chequing account, 2 - to transfer from chequing to savings account: "))
+                            while transfer_to > 0 and transfer_to < 3:
+                                if transfer_to == 1:
+                                    while True:
+                                        try:
+                                            transaction_amount = float(input("Enter amount you wish to transfer to chequing account: "))
+                                            savings_account_details = fetch_account_details(client.client_id, "Savings")
+                                            current_savings_balance = savings_account_details[4]
+                                            chequing_account_details = fetch_account_details(client.client_id, "Chequing")
+                                            current_chequing_balance = chequing_account_details[4]
+                                            # account = Account(account_details[4])
+                                            # account
+                                            print("Your savings account balance is " + str(current_savings_balance))
+                                            print("Your chequing account balance is " + str(current_chequing_balance))
+                                            print("You are transfering " + str(transaction_amount))
+                                            new_savings_balance = float(current_savings_balance) - float(transaction_amount)
+                                            new_chequing_balance = float(current_chequing_balance) + float(transaction_amount)
+                                            print("Your new savings account balance is " + str(new_savings_balance))
+                                            print("Your new chequing account balance is " + str(new_chequing_balance))
+                                            # insert_transactions(transaction_id, account_number, transaction_type, transaction_amount)
+                                            client_return_to(client)
+                                            return new_savings_balance, new_chequing_balance
+                                            break
+                                        except ValueError:
+                                            print("Enter a number. Try again.")
+                                        else:
+                                            return transaction_amount
+                                            break
+                                if transfer_to == 2:
+                                    while True:
+                                        try:
+                                            transaction_amount = float(input("Enter amount you wish to transfer to savings account: "))
+                                            chequing_account_details = fetch_account_details(client.client_id, "Chequing")
+                                            current_chequing_balance = chequing_account_details[4]
+                                            savings_account_details = fetch_account_details(client.client_id, "Savings")
+                                            current_savings_balance = savings_account_details[4]
+                                            # account = Account(account_details[4])
+                                            # account.
+                                            print("Your chequing account balance is " + str(current_chequing_balance))
+                                            print("Your savings account balance is " + str(current_savings_balance))
+                                            print("You are transfering " + str(transaction_amount))
+                                            new_chequing_balance = float(current_chequing_balance) - float(transaction_amount)
+                                            new_savings_balance = float(current_savings_balance) + float(transaction_amount)
+                                            print("Your new chequing account balance is " + str(new_chequing_balance))
+                                            print("Your new savings account balance is " + str(new_savings_balance))
+                                            # insert_transactions(transaction_id, account_number, transaction_type, transaction_amount)
+                                            client_return_to(client)
+                                            return new_chequing_balance, new_savings_balance
+                                            break
+                                        except ValueError:
+                                            print("Enter a number. Try again.")
+                                        else:
+                                            return transaction_amount
+                                            break
+                            else:
+                                print("Try again, please enter option 1 or 2. ")
+                                continue
+                        except ValueError:
+                            print("Enter a number. Try again.")
+                        else:
+                            return transfer_to
+                            break
                     break
-        
                 elif select_account_operation == 4:
                     print("Account details")
                     print(' number     status  type      client ID balance')
@@ -254,8 +351,15 @@ def savings_account(client):
                     print(account_details)
                     client_return_to(client)
                     break
+                elif select_account_operation == 5:
+                    print("Savings account balance")
+                    account_details = fetch_account_details(client.client_id, "Savings")
+                    current_balance = account_details[4]
+                    print("Your savings account balance is " + str(current_balance))
+                    client_return_to(client)
+                    break
             else:
-                print("Error - enter option number from 1 to 4: ")
+                print("Error - enter option number from 1 to 5: ")
                 continue
         except ValueError:
             print("Enter a number. Try again.")
@@ -275,9 +379,17 @@ def chequing_account(client):
                     while True:
                         try:
                             transaction_amount = float(input("Enter amount you wish to deposit: "))
-                            account_balance += transaction_amount
-                            insert_transactions(transaction_id, account_number, transaction_type, transaction_amount)
-                            return account_balance
+                            account_details = fetch_account_details(client.client_id, "Chequing")
+                            current_balance = account_details[4]
+                            # account = Account(account_details[4])
+                            # account.
+                            print("Your chequing account balance is " + str(current_balance))
+                            print("You are depositing " + str(transaction_amount))
+                            new_balance = float(current_balance) + float(transaction_amount)
+                            print("Your new chequing account balance is " + str(new_balance))
+                            # insert_transactions("Deposit", transaction_amount)
+                            client_return_to(client)
+                            return new_balance
                             break
                         except ValueError:
                             print("Enter a number. Try again.")
@@ -287,9 +399,93 @@ def chequing_account(client):
                     break
                 elif select_account_operation == 2:
                     print("Withdraw")
+                    while True:
+                        try:
+                            transaction_amount = float(input("Enter amount you wish to withdraw: "))
+                            account_details = fetch_account_details(client.client_id, "Chequing")
+                            current_balance = account_details[4]
+                            # account = Account(account_details[4])
+                            # account.
+                            print("Your chequing account balance is " + str(current_balance))
+                            print("You are withdrawing " + str(transaction_amount))
+                            new_balance = float(current_balance) - float(transaction_amount)
+                            print("Your new chequing account balance is " + str(new_balance))
+                            # insert_transactions(transaction_id, account_number, transaction_type, transaction_amount)
+                            client_return_to(client)
+                            return new_balance
+                            break
+                        except ValueError:
+                            print("Enter a number. Try again.")
+                        else:
+                            return transaction_amount
+                            break
                     break
                 elif select_account_operation == 3:
                     print("Transfer")
+                    while True:
+                        try:
+                            transfer_to = int(input("Select 1 - to transfer from chequing to savings account, 2 - to transfer from savings to chequing account: "))
+                            while transfer_to > 0 and transfer_to < 3:
+                                if transfer_to == 1:
+                                    while True:
+                                        try:
+                                            transaction_amount = float(input("Enter amount you wish to transfer to savings account: "))
+                                            chequing_account_details = fetch_account_details(client.client_id, "Chequing")
+                                            current_chequing_balance = chequing_account_details[4]
+                                            savings_account_details = fetch_account_details(client.client_id, "Savings")
+                                            current_savings_balance = savings_account_details[4]
+                                            # account = Account(account_details[4])
+                                            # account.
+                                            print("Your chequing account balance is " + str(current_chequing_balance))
+                                            print("Your savings account balance is " + str(current_savings_balance))
+                                            print("You are transfering " + str(transaction_amount))
+                                            new_chequing_balance = float(current_chequing_balance) - float(transaction_amount)
+                                            new_savings_balance = float(current_savings_balance) + float(transaction_amount)
+                                            print("Your new chequing account balance is " + str(new_chequing_balance))
+                                            print("Your new savings account balance is " + str(new_savings_balance))
+                                            # insert_transactions(transaction_id, account_number, transaction_type, transaction_amount)
+                                            client_return_to(client)
+                                            return new_chequing_balance, new_savings_balance
+                                            break
+                                        except ValueError:
+                                            print("Enter a number. Try again.")
+                                        else:
+                                            return transaction_amount
+                                            break
+                                if transfer_to == 2:
+                                    while True:
+                                        try:
+                                            transaction_amount = float(input("Enter amount you wish to transfer to chequing account: "))
+                                            savings_account_details = fetch_account_details(client.client_id, "Savings")
+                                            current_savings_balance = savings_account_details[4]
+                                            chequing_account_details = fetch_account_details(client.client_id, "Chequing")
+                                            current_chequing_balance = chequing_account_details[4]
+                                            # account = Account(account_details[4])
+                                            # account
+                                            print("Your savings account balance is " + str(current_savings_balance))
+                                            print("Your chequing account balance is " + str(current_chequing_balance))
+                                            print("You are transfering " + str(transaction_amount))
+                                            new_savings_balance = float(current_savings_balance) - float(transaction_amount)
+                                            new_chequing_balance = float(current_chequing_balance) + float(transaction_amount)
+                                            print("Your new savings account balance is " + str(new_savings_balance))
+                                            print("Your new chequing account balance is " + str(new_chequing_balance))
+                                            # insert_transactions(transaction_id, account_number, transaction_type, transaction_amount)
+                                            client_return_to(client)
+                                            return new_savings_balance, new_chequing_balance
+                                            break
+                                        except ValueError:
+                                            print("Enter a number. Try again.")
+                                        else:
+                                            return transaction_amount
+                                            break
+                            else:
+                                print("Try again, please enter option 1 or 2. ")
+                                continue
+                        except ValueError:
+                            print("Enter a number. Try again.")
+                        else:
+                            return transfer_to
+                            break
                     break
                 elif select_account_operation == 4:
                     print("Account details")
@@ -301,6 +497,10 @@ def chequing_account(client):
                     break
                 elif select_account_operation == 5:
                     print("Chequing account balance")
+                    account_details = fetch_account_details(client.client_id, "Chequing")
+                    current_balance = account_details[4]
+                    print("Your chequing account balance is " + str(current_balance))
+                    client_return_to(client)
                     break
             else:                             
                 print("Try again, please enter option number from 1 to 5: ")
@@ -326,6 +526,7 @@ def client_account_menu(client):
                 elif select_menu_option == 2:
                     print("Savings account")
                     savings_account_fetch = fetch_account_details(client.client_id,'Savings')
+                    print(savings_account_fetch)
                     savings_account(client)
                     break
                 # works
@@ -334,12 +535,14 @@ def client_account_menu(client):
                     print(" account   pin    first last name    occupation           age   sex  street          city          prov  postal    phone         e-mail  ")
                     personal_details = fetch_client_details(client.client_id, client.client_password)
                     print(personal_details)
+                    client_return_to(client)
                     break
                 elif select_menu_option == 4:
                     print("Your accounts")
-                    accounts = fetch_all_accounts(client.client_id)
-                    print(accounts)
-                    
+                    chequing_account_fetch = fetch_account_details(client.client_id,'Chequing')
+                    savings_account_fetch = fetch_account_details(client.client_id,'Savings')
+                    print(chequing_account_fetch, savings_account_fetch)
+                    client_return_to(client)
                     break
                 elif select_menu_option == 5:
                     print("Contact the manager")
